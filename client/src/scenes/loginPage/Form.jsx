@@ -80,7 +80,7 @@ const Form = (props) => {
       throw new Error("failed to Register");
     }
     const savedUser = await savedUserResponse.json();
-    console.log(savedUser);
+    // console.log(savedUser);
     onSubmitProps.resetForm();
     if (savedUser) {
       setPageType("login");
@@ -95,9 +95,9 @@ const Form = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
-    console.log(loggedInResponse);
+    // console.log(loggedInResponse);
     const loggedIn = await loggedInResponse.json();
-    console.log(loggedIn);
+    // console.log(loggedIn);
     if (loggedInResponse.status === 500) {
       throw new Error(loggedIn.error);
     }

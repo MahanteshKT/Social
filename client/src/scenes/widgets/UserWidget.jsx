@@ -28,7 +28,7 @@ const UserWidget = ({ userId, picturePath }) => {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response);
+    // console.log(response);
     if (!response.ok) {
       throw new Error("error occured at user profile");
     }
@@ -37,7 +37,9 @@ const UserWidget = ({ userId, picturePath }) => {
   };
 
   useEffect(() => {
-    getUser().catch((error) => console.log(error.message));
+    getUser().catch((error) => {
+      "error.message";
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
