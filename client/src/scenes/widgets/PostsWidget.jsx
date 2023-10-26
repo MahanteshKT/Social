@@ -38,6 +38,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   useEffect(() => {
     if (isProfile) {
       getUserPosts();
+      console.log(isProfile, "isprofile");
     } else {
       getPosts()
         .then(() => {
@@ -45,6 +46,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         })
         .catch((error) => console.log(error.message));
     }
+    console.log("useEffect idu");
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   console.log(posts, "posts");
   return (
