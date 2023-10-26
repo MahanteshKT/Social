@@ -24,7 +24,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(BaseUrl + `${userId}/posts`, {
+    const response = await fetch(BaseUrl + `posts/${userId}/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -33,7 +33,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     }
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
-    return data;
   };
 
   useEffect(() => {
@@ -41,13 +40,13 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       getUserPosts();
     } else {
       getPosts()
-        .then((data) => {
-          console.log("posts",data);
+        .then(() => {
+          console.log("posts");
         })
         .catch((error) => console.log(error.message));
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(posts, "posts",);
+  console.log(posts, "posts");
   return (
     <>
       {posts.map(
