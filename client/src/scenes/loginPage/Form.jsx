@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { setLogin } from "state";
 import { EditOutlined } from "@mui/icons-material";
-import { BaseUrl } from "../../BaseUrl";
+import { BaseUrl } from "BaseUrl";
 
 //Schema for forms
 //Yup validatiom schema
@@ -114,9 +114,15 @@ const Form = (props) => {
   };
 
   const formSumbitHandler = async (values, onSubmitProps) => {
-    if (isLogin) await login(values, onSubmitProps);
+    if (isLogin)
+      await login(values, onSubmitProps).catch((error) =>
+        console.log(error.message)
+      );
 
-    if (!isLogin) await register(values, onSubmitProps);
+    if (!isLogin)
+      await register(values, onSubmitProps).catch((error) =>
+        console.log(error.message)
+      );
   };
   return (
     <>

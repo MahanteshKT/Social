@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
 import { BaseUrl } from "../../BaseUrl";
 
 const PostsWidget = ({ userId, isProfile = false }) => {
+  // const [stateposts, setStateposts] = useState([]);
+
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+
   const token = useSelector((state) => state.token);
 
   const getPosts = async (props) => {
@@ -14,27 +17,37 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
+
     const data = await response.json();
+    console.log(data, "uhyuhyuhu");
     dispatch(setPosts({ posts: data }));
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(BaseUrl + `posts/${userId}/posts`, {
+    const response = await fetch(BaseUrl + `${userId}/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!response.ok) {
+      throw new Error("posts does not fetched please check on");
+    }
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
+    return data;
   };
 
   useEffect(() => {
     if (isProfile) {
       getUserPosts();
     } else {
-      getPosts();
+      getPosts()
+        .then((data) => {
+          console.log("posts",data);
+        })
+        .catch((error) => console.log(error.message));
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  console.log(posts, "posts",);
   return (
     <>
       {posts.map(
