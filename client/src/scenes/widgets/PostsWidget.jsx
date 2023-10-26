@@ -47,7 +47,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         .catch((error) => console.log(error.message));
     }
     console.log("useEffect idu");
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
+
+  // eslint-disable-line react-hooks/exhaustive-deps
   console.log(posts, "posts");
   return (
     <>
